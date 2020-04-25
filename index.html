@@ -7,6 +7,10 @@
   <title>Social Media</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
+
+
   <script src="libraries/p5.js"></script>
   <script src="libraries/p5.sound.min.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
@@ -14,7 +18,23 @@
 </head>
 
 <body>
-  <script src="js/sketch.js"></script>
+
+  <h3>Send Message</h3>
+  <div class=""id="sendDiv">
+
+  <textarea id="messageInput"name="name" rows="8" cols="80"
+  placeholder="type your message here ^^"></textarea>
+  <button id="sendMessageButton" type="button" name="button">send message</button>
+</div>
+<div class="hidden" id= "receiveDiv">
+  <button id= "receiveMessageButton" type="button" name="button">receive message</button>
+  <p id="receivedMessage"></p>
+  <button id ="sendAgainButton" class="hidden" type="button" name="button">send another message</button>
+
+</div>
+
+  <script src="js/sketch.js" type="text/text/javascript"></script>
+  <script src="js/gotIt.js" type="text/text/javascript"></script>
 
 
 </body>
