@@ -18,6 +18,8 @@ let receiveDiv, sendDiv;
 
 function setup() {
 
+  console.log("hello");
+
   noCanvas();
   //access DOM elements
   //messageInput = select("#messageInput");
@@ -32,7 +34,7 @@ function setup() {
 
   sendMessageButton.addEventListener('click', sendMessage);
   receiveMessageButton.addEventListener('click', receiveMessage);
-  sendAgainButton.addEventListener('click', sendAgainButton);
+  sendAgainButton.addEventListener('click', sendAgain);
 
   // Initialize firebase
   // support for Firebase Realtime Database 4 web here: https://firebase.google.com/docs/database/web/start
@@ -41,6 +43,7 @@ function setup() {
 
   // paste your config file here
   let config = {
+
     apiKey: "AIzaSyB76T0EByroJWesKHq-6LlPYYDIcM_lkPQ",
     authDomain: "experimentalsocialmedia.firebaseapp.com",
     databaseURL: "https://experimentalsocialmedia.firebaseio.com",
@@ -49,17 +52,22 @@ function setup() {
     messagingSenderId: "576269979759",
     appId: "1:576269979759:web:13c24a93ed6827dd2b7d9a"
 
+
+
   };
+
+
 
   firebase.initializeApp(config);
 
-  database = firebase.database();
+database = firebase.database();
 
-  // this references the folder you want your data to appear in
-  let ref = database.ref(folderName);
-  // **** folderName must be consistant across all calls to this folder
+// this references the folder you want your data to appear in
+let ref = database.ref(folderName);
+// **** folderName must be consistant across all calls to this folder
 
-  ref.on('value', gotData, errData);
+ref.on('value', gotData, errData);
+console.log(ref);
 
   // ---> To find your config object:
   // They will provide it during Firebase setup
@@ -105,30 +113,61 @@ function sendMessage() {
 }
 
 function receiveMessage() {
+
+//shuffle array first
+shuffleArray(fbDataArray);
+
+
+
   for (let i = 0; i < fbDataArray.length; i++) {
     if (fbDataArray[i].received === false) {
-    //can't see this console -->
-    //console.log("received");
-    //console.log(fbDataArray[i].messageText);
+      //can't see this console -->
+      //console.log("received");
+      //console.log(fbDataArray[i].messageText);
 
-    receivedMessage.innerHTML = fbDataArray[i].messageText;
+      receivedMessage.innerHTML = fbDataArray[i].messageText;
 
-    updateNode(folderName, fbDataArray[i].timestamp, {received: true});
+      updateNode(folderName, fbDataArray[i].timestamp, {
+        received: true
+      });
+      receiveMessageButton.style.display = 'none';
+      sendAgainButton.style.display = 'block';
 
-    receiveMessageButton.style.display = 'none';
-    sendAgainButton.style.display = 'block';
 
-    break;
+      break;
 
-} else {
-    receivedMessage.innerHTML = "no more messages";
-  //content.log("no more messages");
+    } else {
+      receivedMessage.innerHTML = "no more messages";
+      //content.log("no more messages");
+    }
+  }
 }
-}
-}
 
-function sendAgain (){
-
+function sendAgain() {
+  //reset receive sendDiv
+  receivedMessage.innerHTML = "";
+  receiveMessageButton.style.display = 'block';
+  sendAgainButton.style.display = 'none';
+//return to begining
   receiveDiv.style.display = 'none';
   sendDiv.style.display = 'block';
+
+}
+function shuffleArray(_array){
+
+// iterate backwards through an array
+for (let i = _array.length - 1; i > 0; i--) {
+
+  // grab random index from 0 to i
+  let randomIndex = Math.floor(Math.random() * (i + 1));
+
+  // swap elements _array[i] and _array[j]
+  [_array[i], _array[randomIndex]] = [_array[randomIndex], _array[i]]; // using "destructuring assignment" syntax
+
+  // same can be written as:
+  // let _arrayItem = _array[i]; // _array item in original position _array[i]
+  // _array[i] = _array[randomIndex]; // overwrite _array[i] with new item at random index
+  // _array[randomIndex] = _arrayItem; // now move array item from original position into random position
+
+}
 }
