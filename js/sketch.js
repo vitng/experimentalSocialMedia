@@ -2,7 +2,7 @@
 
 //databaseURL
 //https://console.firebase.google.com/u/0/project/experimentalsocialmedia/database/experimentalsocialmedia/data
-
+let img;
 let nodeData; // object we will push to firebase
 let fbData; // data we pull from firebase
 let fbDataArray; // firebase data values converted to an array
@@ -15,12 +15,18 @@ let sendAgainButton;
 let receivedMessage;
 let receiveDiv, sendDiv;
 
+function preload(){
+  img = loadImage('moon.png');
+}
 
 function setup() {
+//createCanvas(1000,900);
 
-  console.log("hello");
 
-  noCanvas();
+
+//imageMode(CENTER);
+  //console.log("hello");
+
   //access DOM elements
   //messageInput = select("#messageInput");
   messageInput = document.querySelector("#messageInput");
@@ -80,7 +86,6 @@ console.log(ref);
 }
 
 function draw() {
-
 }
 
 function sendMessage() {
@@ -102,7 +107,6 @@ function sendMessage() {
 
     //0 out text area
     messageInput.value = ''
-
     sendDiv.style.display = 'none';
     receiveDiv.style.display = 'block';
 

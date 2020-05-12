@@ -254,3 +254,7 @@ let fortunes=[
   "Accept your independence and use it wisely.",
   "May the warm winds of heaven blow softly upon your sprint."
 ]
+
+function draw() {
+  strokeWeight(2);
+}
